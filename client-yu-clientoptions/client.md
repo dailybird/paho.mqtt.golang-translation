@@ -37,5 +37,17 @@ A websocket
 
 > To enable ensured message delivery at Quality of Service \(QoS\) levels described in the MQTT spec, a message persistence mechanism must be used. This is done by providing a type which implements the Store interface. For convenience, FileStore and MemoryStore are provided implementations that should be sufficient for most use cases. More information can be found in their respective documentation. Numerous connection options may be specified by configuring a and then supplying a ClientOptions type.
 
+### func NewClient
+
+```
+func NewClient(o *ClientOptions) Client
+```
+
+我们可以通过 NewClient 方法创建一个 MQTT v3.1.1 的客户端，该方法接受一个 ClientOptions 类型的参数用于提供与连接有关的配置。在这一 Client 使用之前，需要最先调用 Client 的 Connect 方法。这是因为，在应用准备好之前，必须确保相关的资源都已经被创建了。（译注：即我们要想使用 MQTT 中客户端的功能：如注册、发布等，必须事先调用 Client 的  Connect 方法。）
+
+> NewClient will create an MQTT v3.1.1 client with all of the options specified in the provided ClientOptions. The client must have the Connect method called on it before it may be used. This is to make sure resources \(such as a net connection\) are created before the application is actually ready.
+
+
+
 
 
