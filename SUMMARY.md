@@ -2,4 +2,6 @@
 
 * [介绍](README.md)
 * [变量](chapter1.md)
+* [Client 与 ClientOptions](client-yu-clientoptions.md)
+  * [Client 及相关方法](client-yu-clientoptions/client.md)
 
