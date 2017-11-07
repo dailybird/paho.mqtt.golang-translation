@@ -43,7 +43,7 @@ func NewClientOptions() *ClientOptions
 
 `NewClientOptions` 方法将会创建一个 `ClientOptions` 对象，该对象会附带一些默认的配置。
 
-> NewClientOptions will create a new ClientClientOptions type with some default values.
+> NewClientOptions will create a new ClientOptions type with some default values.
 
 ```
 Port: 1883
