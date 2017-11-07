@@ -70,7 +70,7 @@ func (o *ClientOptions) SetClientID(id string) *ClientOptions
 func (o *ClientOptions) SetConnectTimeout(t time.Duration) *ClientOptions
 ```
 
-`SetConnectTimeout` 方法会设置客户端在连接到代理超时并上报错误信息之前会等待的时间。当该值被设置为 0 时，表明没有超时等待时长。默认情况下，该值会被设置为 30 秒。目前这一选项只支持 TCP/TLS 连接。
+`SetConnectTimeout` 方法会设置客户端在连接到代理超时并上报错误信息之前会等待的时间。当该值被设置为 0 时，表明没有超时等待时长。默认情况下，该值会被设置为 30 秒。目前这一选项只在使用 TCP/TLS 连接时生效。
 
 > SetConnectTimeout limits how long the client will wait when trying to open a connection to an MQTT server before timing out and erroring the attempt. A duration of 0 never times out. Default 30 seconds. Currently only operational on TCP/TLS connections.
 
@@ -140,9 +140,99 @@ func (o *ClientOptions) SetOnConnectHandler(onConn OnConnectHandler) *ClientOpti
 func (o *ClientOptions) SetOrderMatters(order bool) *ClientOptions
 ```
 
-SetOrderMatters 方法（当设置为 true ）时规划了消息的路由从而确保了各个 Qos 级别中消息的顺序。默认情况下，该值被设置为 true。在设置为 false 的情况下，消息可以异步发送但无法保证有序性。
+`SetOrderMatters` 方法（当设置为 `true` ）时规划了消息的路由从而确保了各个 Qos 级别中消息的顺序。默认情况下，该值被设置为 `true`。在设置为 `false` 的情况下，消息可以异步发送但无法保证有序性。
 
 > SetOrderMatters will set the message routing to guarantee order within each QoS level. By default, this value is true. If set to false, this flag indicates that messages can be delivered asynchronously from the client to the application and possibly arrive out of order.
+
+### func \(\*ClientOptions\) SetPassword
+
+```
+func (o *ClientOptions) SetPassword(p string) *ClientOptions
+```
+
+`SetPassword` 设置了密码，这一密码将会在连接到 MQTT 代理时使用。注意：当不使用 SSL/TLS 时，这一信息会以明文方式传输。
+
+> SetPassword will set the password to be used by this client when connecting to the MQTT broker. Note: without the use of SSL/TLS, this information will be sent in plaintext accross the wire.
+
+### func \(\*ClientOptions\) SetPingTimeout
+
+```
+func (o *ClientOptions) SetPingTimeout(k time.Duration) *ClientOptions
+```
+
+`SetPingTimeout` 设置了客户端在向代理发送 PING 请求后的等待时长（以秒为单位），在这一时长结束且仍未收到反馈时，客户端会认为连接已被断开。默认值为 10 秒。
+
+> SetPingTimeout will set the amount of time \(in seconds\) that the client will wait after sending a PING request to the broker, before deciding that the connection has been lost. Default is 10 seconds.
+
+### func \(\*ClientOptions\) SetProtocolVersion
+
+```
+func (o *ClientOptions) SetProtocolVersion(pv uint) *ClientOptions
+```
+
+`SetProtocolVersion` 设置了连接到代理时使用的 MQTT 协议版本。合法的值有两个：3 表示 MQTT 3.1 版本；4 表示 MQTT 3.1.1 版本。
+
+> SetProtocolVersion sets the MQTT version to be used to connect to the broker. Legitimate values are currently 3 - MQTT 3.1 or 4 - MQTT 3.1.1
+
+### func \(\*ClientOptions\) SetStore
+
+```
+func (o *ClientOptions) SetStore(s Store) *ClientOptions
+```
+
+`SetStore` 设置了消息持久化的机制。该方法接收一个 `Store` 接口的实现，用于在使用 Qos 级别 1 和 级别 2 通信时提供这一机制。默认情况下，客户端将会使用 `MemoryStore` 这一实现。
+
+> SetStore will set the implementation of the Store interface used to provide message persistence in cases where QoS levels QoS\_ONE or QoS\_TWO are used. If no store is provided, then the client will use MemoryStore by default.
+
+### func \(\*ClientOptions\) SetTLSConfig
+
+```
+func (o *ClientOptions) SetTLSConfig(t *tls.Config) *ClientOptions
+```
+
+SetTLSConfig 将会设置连接到 MQTT 代理时所使用的 SSL/TLS 配置。大家可以再 Go 文档中找到更多信息。
+
+> SetTLSConfig will set an SSL/TLS configuration to be used when connecting to an MQTT broker. Please read the official Go documentation for more information.
+
+### func \(\*ClientOptions\) SetUsername
+
+```
+func (o *ClientOptions) SetUsername(u string) *ClientOptions
+```
+
+SetUsername 将会设置客户端连接到 MQTT 代理时使用的用户名。注意：当不使用 SSL/TLS 时，这些信息会被明文传输。
+
+> SetUsername will set the username to be used by this client when connecting to the MQTT broker. Note: without the use of SSL/TLS, this information will be sent in plaintext accross the wire.
+
+### func \(\*ClientOptions\) SetWill
+
+```
+func (o *ClientOptions) SetWill(topic string, payload string, qos byte, retained bool) *ClientOptions
+```
+
+类比 SetBinaryWill。
+
+> SetWill accepts a string will message to be set. When the client connects, it will give this will message to the broker, which will then publish the provided payload \(the will\) to any clients that are subscribed to the provided topic.
+
+### func \(\*ClientOptions\) SetWriteTimeout
+
+```
+func (o *ClientOptions) SetWriteTimeout(t time.Duration) *ClientOptions
+```
+
+SetWriteTimeout 设置了 MQTT 发布时的最大阻塞时长，当超过这一时长时，阻塞会被接触并抛出超时错误。设置为 0 表示从不超时。默认为 30 秒。
+
+> SetWriteTimeout puts a limit on how long a mqtt publish should block until it unblocks with a timeout error. A duration of 0 never times out. Default 30 seconds.
+
+### func \(\*ClientOptions\) UnsetWill
+
+```
+func (o *ClientOptions) UnsetWill() *ClientOptions
+```
+
+UnsetWill 将会导致遗嘱消息被忽视。
+
+> UnsetWill will cause any set will message to be disregarded.
 
 
 
