@@ -100,9 +100,49 @@ func (o *ClientOptions) SetDefaultPublishHandler(defaultHandler MessageHandler) 
 func (o *ClientOptions) SetKeepAlive(k time.Duration) *ClientOptions
 ```
 
-`SetKeepAlive` 方法会设置客户端发送 PING 请求到代理之前的等待时间。这一机制可以使得客户端确保与代理的连接尚未中断。
+`SetKeepAlive` 方法会设置客户端发送 PING 请求到代理之前的等待时间（以秒为单位）。这一机制可以使得客户端确保与代理的连接尚未中断。
 
 > SetKeepAlive will set the amount of time \(in seconds\) that the client should wait before sending a PING request to the broker. This will allow the client to know that a connection has not been lost with the server.
+
+### func \(\*ClientOptions\) SetMaxReconnectInterval
+
+```
+func (o *ClientOptions) SetMaxReconnectInterval(t time.Duration) *ClientOptions
+```
+
+`SetMaxReconnectInterval` 设置了连接断开之后两次重连尝试之间的最大间隔时间。
+
+> SetMaxReconnectInterval sets the maximum time that will be waited between reconnection attempts when connection is lost.
+
+### func \(\*ClientOptions\) SetMessageChannelDepth
+
+```
+func (o *ClientOptions) SetMessageChannelDepth(s uint) *ClientOptions
+```
+
+`SetMessageChannelDepth` 设置了客户端临时离线后，用于暂存消息的内部队列大小，这些消息将在客户端重连之后被重新发布。注意，只有在 `AutoReconnect` 被设置为 true 时，这一机制才能生效，否则将会被忽略。
+
+> SetMessageChannelDepth sets the size of the internal queue that holds messages while the client is temporairily offline, allowing the application to publish when the client is reconnecting. This setting is only valid if AutoReconnect is set to true, it is otherwise ignored.
+
+### func \(\*ClientOptions\) SetOnConnectHandler
+
+```
+func (o *ClientOptions) SetOnConnectHandler(onConn OnConnectHandler) *ClientOptions
+```
+
+`SetOnConnectHandler` 设置了客户端连接之后的回调，包括初始化连接及自动重连。
+
+> SetOnConnectHandler sets the function to be called when the client is connected. Both at initial connection time and upon automatic reconnect.
+
+### func \(\*ClientOptions\) SetOrderMatters
+
+```
+func (o *ClientOptions) SetOrderMatters(order bool) *ClientOptions
+```
+
+SetOrderMatters 方法（当设置为 true ）时规划了消息的路由从而确保了各个 Qos 级别中消息的顺序。默认情况下，该值被设置为 true。在设置为 false 的情况下，消息可以异步发送但无法保证有序性。
+
+> SetOrderMatters will set the message routing to guarantee order within each QoS level. By default, this value is true. If set to false, this flag indicates that messages can be delivered asynchronously from the client to the application and possibly arrive out of order.
 
 
 
