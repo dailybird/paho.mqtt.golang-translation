@@ -26,7 +26,7 @@ func (o *ClientOptions) SetAutoReconnect(a bool) *ClientOptions.
 func (o *ClientOptions) SetBinaryWill(topic string, payload []byte, qos byte, retained bool) *ClientOptions
 ```
 
-SetBinaryWill 会设置一条遗嘱消息。当客户端连接（到代理）时，这条消息将会发送给代理。参数中提供了 topic，用于在之后将该消息推送给所有订阅了该 topic 的客户端。
+`SetBinaryWill` 会设置一条遗嘱消息。当客户端连接（到代理）时，这条消息将会发送给代理。参数中提供了 topic，用于在之后将该消息推送给所有订阅了该 topic 的客户端。
 
 > SetBinaryWill accepts a \[\]byte will message to be set. When the client connects, it will give this will message to the broker, which will then publish the provided payload \(the will\) to any clients that are subscribed to the provided topic.
 
@@ -42,7 +42,7 @@ SetBinaryWill 会设置一条遗嘱消息。当客户端连接（到代理）时
 func (o *ClientOptions) SetCleanSession(clean bool) *ClientOptions
 ```
 
-SetCleanSession 方法会设置连接消息（ CONNECT Message ）中的 clean session 标识位。当设置这一标识位时，所有在代理中保存但尚未发送给客户端的消息都不会再发送。且客户端只有断开并重连代理之后才能继续发送消息。
+`SetCleanSession` 方法会设置连接消息（ CONNECT Message ）中的 clean session 标识位。当设置这一标识位时，所有在代理中保存但尚未发送给客户端的消息都不会再发送。且客户端只有断开并重连代理之后才能继续发送消息。
 
 > SetCleanSession will set the "clean session" flag in the connect message when this client connects to an MQTT broker. By setting this flag, you are indicating that no messages saved by the broker for this client should be delivered. Any messages that were going to be sent by this client before disconnecting previously but didn't will not be sent upon connecting to the broker.
 
@@ -51,10 +51,58 @@ SetCleanSession 方法会设置连接消息（ CONNECT Message ）中的 clean s
 以下为一些摘录：
 
 > 一般来说，客户端连接时总是将清理会话标志设置为0或1，并且不交替使用两种值。这个选择取决于具体的应用。清理会话标志设置为1的客户端不会收到旧的应用消息，而且在每次连接成功后都需要重新订阅任何相关的主题。清理会话标志设置为0的客户端会收到所有在它连接断开期间发布的QoS 1和QoS 2级别的消息。因此，要确保不丢失连接断开期间的消息，需要使用QoS 1或 QoS 2级别，同时将清理会话标志设置为0。
-
+>
 > 在连接之前，您必须设置 cleanSession 方式；在整个会话期间都将保持此方式。要更改此属性的设置，必须将客户机断开连接，然后再重新连接客户机。如果您将方式从使用 cleanSession=false 更改为 cleanSession=true，那么此客户机先前的所有预订以及尚未接收到的任何发布都将被废弃。
 
+### func \(\*ClientOptions\) SetClientID
 
+```
+func (o *ClientOptions) SetClientID(id string) *ClientOptions
+```
+
+`SetClientID` 将会设置客户端连接到 MQTT 代理时所使用的 ID。基于 MQTT 3.1 标准，这一 ID 字符串的长度不能大于 23。
+
+> SetClientID will set the client id to be used by this client when connecting to the MQTT broker. According to the MQTT v3.1 specification, a client id mus be no longer than 23 characters.
+
+### func \(\*ClientOptions\) SetConnectTimeout
+
+```
+func (o *ClientOptions) SetConnectTimeout(t time.Duration) *ClientOptions
+```
+
+`SetConnectTimeout` 方法会设置客户端在连接到代理超时并上报错误信息之前会等待的时间。当该值被设置为 0 时，表明没有超时等待时长。默认情况下，该值会被设置为 30 秒。目前这一选项只支持 TCP/TLS 连接。
+
+> SetConnectTimeout limits how long the client will wait when trying to open a connection to an MQTT server before timing out and erroring the attempt. A duration of 0 never times out. Default 30 seconds. Currently only operational on TCP/TLS connections.
+
+### func \(\*ClientOptions\) SetConnectionLostHandler
+
+```
+func (o *ClientOptions) SetConnectionLostHandler(onLost ConnectionLostHandler) *ClientOptions
+```
+
+`SetConnectionLostHandler` 会设置一个回调，用于在客户端以外的中断连接时触发。
+
+> SetConnectionLostHandler will set the OnConnectionLost callback to be executed in the case where the client unexpectedly loses connection with the MQTT broker.
+
+### func \(\*ClientOptions\) SetDefaultPublishHandler
+
+```
+func (o *ClientOptions) SetDefaultPublishHandler(defaultHandler MessageHandler) *ClientOptions
+```
+
+`SetDefaultPublishHandler` 会设置一个回调，用于客户端收到消息且没有匹配任何订阅处理函数时触发。
+
+> SetDefaultPublishHandler sets the MessageHandler that will be called when a message is received that does not match any known subscriptions.
+
+### func \(\*ClientOptions\) SetKeepAlive
+
+```
+func (o *ClientOptions) SetKeepAlive(k time.Duration) *ClientOptions
+```
+
+`SetKeepAlive` 方法会设置客户端发送 PING 请求到代理之前的等待时间。这一机制可以使得客户端确保与代理的连接尚未中断。
+
+> SetKeepAlive will set the amount of time \(in seconds\) that the client should wait before sending a PING request to the broker. This will allow the client to know that a connection has not been lost with the server.
 
 
 
