@@ -9,7 +9,7 @@ type FileStore struct {
 }
 ```
 
-`FileStore` 实现了 `Store` 接口，其使用文件系统提供消息的持久化，甚至是在客户端出错的情况下。这是为每个正在运行的客户端使用单独的目录而设计的。如果你在同一个文件系统中运行了多个客户端，那么需要分别为每一个客户端指定不同的存储路径。
+`FileStore` 实现了 `Store` 接口，其使用文件系统提供真正的消息持久化（译注：相比于 `MemoryStore` ），甚至是在客户端出错的情况下。这是为每个正在运行的客户端使用单独的目录而设计的。如果你在同一个文件系统中运行了多个客户端，那么需要分别为每一个客户端指定不同的存储路径。
 
 > FileStore implements the store interface using the filesystem to provide true persistence, even across client failure. This is designed to use a single directory per running client. If you are running multiple clients on the same filesystem, you will need to be careful to specify unique store directories for each.
 
