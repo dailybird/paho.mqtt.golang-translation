@@ -1,6 +1,6 @@
 # 其他
 
-### type MId
+## type MId
 
 ```
 type MId uint16
@@ -10,7 +10,7 @@ type MId uint16
 
 > MId is 16 bit message id as specified by the MQTT spec. In general, these values should not be depended upon by the client application.
 
-### type PacketAndToken
+## type PacketAndToken
 
 ```
 type PacketAndToken struct {
