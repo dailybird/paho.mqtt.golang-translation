@@ -10,13 +10,13 @@ func (o *ClientOptions) AddBroker(server string) *ClientOptions.
 
 > AddBroker adds a broker URI to the list of brokers to be used. The format should be scheme://host:port Where "scheme" is one of "tcp", "ssl", or "ws", "host" is the ip-address \(or hostname\) and "port" is the port on which the broker is accepting connections.
 
-func \(\*ClientOptions\) SetAutoReconnect
+### func \(\*ClientOptions\) SetAutoReconnect
 
 ```
 func (o *ClientOptions) SetAutoReconnect(a bool) *ClientOptions.
 ```
 
-`SetAutoReconnect` 会设置连接丢失后重连逻辑是否启用。而这一机制的启用与否并不会影响 `ConnectionLostHandler` （译注：失去连接事件的回调）回调的执行。
+`SetAutoReconnect` 会设置连接丢失后重连逻辑是否启用。而这一机制的启用与否并不会影响 `ConnectionLostHandler` （译注：失去连接的事件处理器）的执行。
 
 > SetAutoReconnect sets whether the automatic reconnection logic should be used when the connection is lost, even if disabled the ConnectionLostHandler is still called
 
@@ -80,7 +80,7 @@ func (o *ClientOptions) SetConnectTimeout(t time.Duration) *ClientOptions
 func (o *ClientOptions) SetConnectionLostHandler(onLost ConnectionLostHandler) *ClientOptions
 ```
 
-`SetConnectionLostHandler` 会设置一个回调，用于在客户端以外的中断连接时触发。
+`SetConnectionLostHandler` 会设置一个处理器，用于在客户端连接意外中断时触发。
 
 > SetConnectionLostHandler will set the OnConnectionLost callback to be executed in the case where the client unexpectedly loses connection with the MQTT broker.
 
@@ -90,7 +90,7 @@ func (o *ClientOptions) SetConnectionLostHandler(onLost ConnectionLostHandler) *
 func (o *ClientOptions) SetDefaultPublishHandler(defaultHandler MessageHandler) *ClientOptions
 ```
 
-`SetDefaultPublishHandler` 会设置一个回调，用于客户端收到消息且没有匹配任何订阅处理函数时触发。
+`SetDefaultPublishHandler` 会设置一个处理器，用于客户端收到消息且没有匹配任何订阅处理函数时触发。
 
 > SetDefaultPublishHandler sets the MessageHandler that will be called when a message is received that does not match any known subscriptions.
 
@@ -130,7 +130,7 @@ func (o *ClientOptions) SetMessageChannelDepth(s uint) *ClientOptions
 func (o *ClientOptions) SetOnConnectHandler(onConn OnConnectHandler) *ClientOptions
 ```
 
-`SetOnConnectHandler` 设置了客户端连接之后的回调，包括初始化连接及自动重连。
+`SetOnConnectHandler` 设置了客户端连接之后的处理器，包括初始化连接及自动重连。
 
 > SetOnConnectHandler sets the function to be called when the client is connected. Both at initial connection time and upon automatic reconnect.
 
