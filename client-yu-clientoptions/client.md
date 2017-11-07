@@ -1,6 +1,6 @@
 # Client 及相关方法
 
-### type Client
+## type Client
 
 ```
 type Client interface {

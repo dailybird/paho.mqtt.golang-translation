@@ -1,6 +1,6 @@
 # Store 存储
 
-### type Store
+## type Store
 
 ```
 type Store interface {

@@ -15,9 +15,9 @@
   * [ConnectToken 及相关方法](token-biao-shi/connecttoken-ji-xiang-guan-fang-fa.md)
   * [DisconnectToken 及相关方法](token-biao-shi/disconnecttoken-ji-xiang-guan-fang-fa.md)
   * [DummyToken 及相关方法](token-biao-shi/dummytoken-ji-xiang-guan-fang-fa.md)
-  * PublishToken 及相关方法
-  * SubscribeToken 及相关方法
-  * UnsubscribeToken 及相关方法
+  * [PublishToken 及相关方法](token-biao-shi/publishtoken-ji-xiang-guan-fang-fa.md)
+  * [SubscribeToken 及相关方法](token-biao-shi/subscribetoken-ji-xiang-guan-fang-fa.md)
+  * [UnsubscribeToken 及相关方法](token-biao-shi/unsubscribetoken-ji-xiang-guan-fang-fa.md)
 * [Message 消息](message-xiao-xi.md)
 * [其他](qi-ta.md)
 

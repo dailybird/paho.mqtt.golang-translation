@@ -1,6 +1,6 @@
 # ConnectToken 及相关方法
 
-### type ConnectToken
+## type ConnectToken
 
 ```
 type ConnectToken struct {

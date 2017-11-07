@@ -1,6 +1,6 @@
 # FileStore 及相关方法
 
-### type FileStore
+## type FileStore
 
 ```
 type FileStore struct {

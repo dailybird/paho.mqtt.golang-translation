@@ -1,35 +1,33 @@
-# DisconnectToken 及相关方法
+# UnsubscribeToken 及相关方法
 
-## type DisconnectToken
+## type UnsubscribeToken
 
 ```
-type DisconnectToken struct {
+type UnsubscribeToken struct {
     // contains filtered or unexported fields
 }
 ```
 
-`DisconnectToken` 是`Token` 的一个扩展，包含了一些用于在 `Disconnect` 方法调用之后需要提供的额外字段。
+> UnsubscribeToken is an extension of Token containing the extra fields required to provide information about calls to Unsubscribe\(\).
 
-> DisconnectToken is an extension of Token containing the extra fields required to provide information about calls to Disconnect\(\)
-
-### func \(\*DisconnectToken\) Error
+### func \(\*UnsubscribeToken\) Error
 
 ```
-func (b *DisconnectToken) Error() error
+func (b *UnsubscribeToken) Error() error
 ```
 
-### func \(\*DisconnectToken\) Wait
+### func \(\*UnsubscribeToken\) Wait
 
 ```
-func (b *DisconnectToken) Wait() bool
+func (b *UnsubscribeToken) Wait() bool
 ```
 
 > Wait will wait indefinitely for the Token to complete, ie the Publish to be sent and confirmed receipt from the broker
 
-### func \(\*DisconnectToken\) WaitTimeout
+### func \(\*UnsubscribeToken\) WaitTimeout
 
 ```
-func (b *DisconnectToken) WaitTimeout(d time.Duration) bool
+func (b *UnsubscribeToken) WaitTimeout(d time.Duration) bool
 ```
 
 > WaitTimeout takes a time in ms to wait for the flow associated with the Token to complete, returns true if it returned before the timeout or returns false if the timeout occurred. In the case of a timeout the Token does not have an error set in case the caller wishes to wait again

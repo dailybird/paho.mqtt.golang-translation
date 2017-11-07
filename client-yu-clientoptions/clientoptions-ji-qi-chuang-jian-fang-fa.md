@@ -1,5 +1,7 @@
 # ClientOptions 及其创建方法
 
+## type ClientOptions
+
 ```
 type ClientOptions struct {
     Servers         []*url.URL

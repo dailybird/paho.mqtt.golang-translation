@@ -1,6 +1,6 @@
 # MemoryStore 及相关方法
 
-### type MemoryStore
+## type MemoryStore
 
 ```
 type MemoryStore struct {
