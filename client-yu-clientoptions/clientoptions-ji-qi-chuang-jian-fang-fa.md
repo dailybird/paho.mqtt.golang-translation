@@ -31,5 +31,29 @@ type ClientOptions struct {
 }
 ```
 
-ClientOptions 包含客户端的配置选项。
+`ClientOptions` 包含客户端的配置选项。
+
+> ClientOptions contains configurable options for an Client.
+
+### func NewClientOptions
+
+```
+func NewClientOptions() *ClientOptions
+```
+
+`NewClientOptions` 方法将会创建一个 `ClientOptions` 对象，该对象会附带一些默认的配置。
+
+> NewClientOptions will create a new ClientClientOptions type with some default values.
+
+```
+Port: 1883
+CleanSession: True
+Order: True
+KeepAlive: 30 (seconds)
+ConnectTimeout: 30 (seconds)
+MaxReconnectInterval 10 (minutes)
+AutoReconnect: True
+```
+
+
 
