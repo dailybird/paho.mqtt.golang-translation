@@ -14,7 +14,7 @@
 * [Token 标识](token-biao-shi.md)
   * [ConnectToken 及相关方法](token-biao-shi/connecttoken-ji-xiang-guan-fang-fa.md)
   * [DisconnectToken 及相关方法](token-biao-shi/disconnecttoken-ji-xiang-guan-fang-fa.md)
-  * DummyToken 及相关方法
+  * [DummyToken 及相关方法](token-biao-shi/dummytoken-ji-xiang-guan-fang-fa.md)
   * PublishToken 及相关方法
   * SubscribeToken 及相关方法
   * UnsubscribeToken 及相关方法
